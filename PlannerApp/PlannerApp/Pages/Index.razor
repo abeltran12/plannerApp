@@ -1,0 +1,15 @@
+﻿@page "/"
+
+<AuthorizeView>
+    <NotAuthorized>
+        <h3>No tiene acceso a esta p&aacutegina</h3>
+    </NotAuthorized>
+    <Authorized>
+        <h3>Bienvenido @context.User.FindFirst(System.Security.Claims.ClaimTypes.GivenName).Value</h3>
+    </Authorized>
+</AuthorizeView>
+
+@code
+{
+
+}
