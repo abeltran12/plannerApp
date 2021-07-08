@@ -2,10 +2,10 @@
 
 <AuthorizeView>
     <NotAuthorized>
-        <h3>No tiene acceso a esta p&aacutegina</h3>
+        <MudLink Href="/authentication/login">Entrar</MudLink>
     </NotAuthorized>
     <Authorized>
-        <h3>Bienvenido @context.User.FindFirst(System.Security.Claims.ClaimTypes.GivenName).Value</h3>
+        <h3>Bienvenido</h3>
     </Authorized>
 </AuthorizeView>
 

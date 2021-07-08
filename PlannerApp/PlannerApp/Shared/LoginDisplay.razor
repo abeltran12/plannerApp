@@ -1,0 +1,34 @@
+﻿@using System.Security.Claims
+@inject ILocalStorageService LocalStorageService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+
+<AuthorizeView>
+    <NotAuthorized>
+        <MudIconButton Icon="@Icons.Filled.Login" 
+                       Color="Color.Secondary" 
+                       OnClick='() => Navigation.NavigateTo("/authentication/login")' />
+    </NotAuthorized>
+    <Authorized>
+        <MudMenu Icon="@Icons.Filled.Person" Color="Color.Secondary" 
+                 Direction="Direction.Right" OffsetY="true">
+            <MudMenuItem>Bienvenido @context.User.FindFirst(ClaimTypes.GivenName).Value</MudMenuItem>
+            <MudMenuItem OnClick="LogoutAsync">Salir</MudMenuItem>
+        </MudMenu>
+    </Authorized>
+</AuthorizeView>
+
+
+
+@code {
+
+    private async Task LogoutAsync()
+    {
+        await LocalStorageService.RemoveItemAsync("access_token");
+        await LocalStorageService.RemoveItemAsync("expiry_date");
+        await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+        Navigation.NavigateTo("/authentication/login");
+    }
+
+}
