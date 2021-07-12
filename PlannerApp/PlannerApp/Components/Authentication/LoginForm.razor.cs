@@ -26,7 +26,7 @@ namespace PlannerApp.Components
         [Inject]
         public ILocalStorageService LocalStorageService { get; set; }
 
-        private Login _login = new Login();
+        private Login _login = new();
 
         private bool _isBussy { get; set; }
 
@@ -57,6 +57,11 @@ namespace PlannerApp.Components
             }
 
             _isBussy = false;
+        }
+
+        private void RedirectToRegister()
+        {
+            NavigationManager.NavigateTo("/authentication/register");
         }
     }
 }
