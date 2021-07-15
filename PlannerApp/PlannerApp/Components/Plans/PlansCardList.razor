@@ -1,0 +1,45 @@
+﻿@namespace PlannerApp.Components
+
+@if (_IsBussy)
+{
+    <MudGrid Spacing="2">
+        <MudItem sm="12" md="4" lg="3">
+            <PlanCard IsBusy="true" />
+        </MudItem>
+        <MudItem sm="12" md="4" lg="3">
+            <PlanCard IsBusy="true" />
+        </MudItem>
+        <MudItem sm="12" md="4" lg="3">
+            <PlanCard IsBusy="true" />
+        </MudItem>
+        <MudItem sm="12" md="4" lg="3">
+            <PlanCard IsBusy="true" />
+        </MudItem>
+        <MudItem sm="12" md="4" lg="3">
+            <PlanCard IsBusy="true" />
+        </MudItem>
+        <MudItem sm="12" md="4" lg="3">
+            <PlanCard IsBusy="true" />
+        </MudItem>
+        <MudItem sm="12" md="4" lg="3">
+            <PlanCard IsBusy="true" />
+        </MudItem>
+        <MudItem sm="12" md="4" lg="3">
+            <PlanCard IsBusy="true" />
+        </MudItem>
+    </MudGrid>
+}
+else
+{
+    <MudGrid Spacing="2">
+        @if (_result != null && _result.Records != null)
+        {
+            foreach (var item in _result.Records)
+            {
+                <MudItem sm="12" md="4" lg="3">
+                    <PlanCard planSumary="item" />
+                </MudItem>
+            }
+        }
+    </MudGrid>
+}

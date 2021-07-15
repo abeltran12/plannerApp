@@ -14,11 +14,8 @@ namespace PlannerApp.Components
 {
     public partial class RegisterForm : ComponentBase
     {
-        //[Inject]
-        //public IAuthenticationService AuthenticationService { get; set; }
-
         [Inject]
-        public HttpClient HttpClient { get; set; }
+        public IAuthenticationService AuthenticationService { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -34,30 +31,18 @@ namespace PlannerApp.Components
             _isBussy = true;
             _errorMessage = string.Empty;
 
-            //try
-            //{
-            //    await AuthenticationService.RegisterUserAsync(_register);
-            //    NavigationManager.NavigateTo("/authentication/login");
-            //}
-            //catch(ApiException ex)
-            //{
-            //    _errorMessage = ex.apiErrorResponse.Message;
-            //}
-            //catch(Exception ex)
-            //{
-            //    _errorMessage = ex.Message;
-            //}
-
-            var response = await HttpClient.PostAsJsonAsync("/api/v2/auth/register", _register);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                NavigationManager.NavigateTo("/");
+                await AuthenticationService.RegisterUserAsync(_register);
+                NavigationManager.NavigateTo("/authentication/login");
             }
-            else
+            catch (ApiException ex)
             {
-                var errorResult = await response.Content.ReadFromJsonAsync<ApiErrorResponse>();
-                _errorMessage = errorResult.Message;
+                _errorMessage = ex.apiErrorResponse.Message;
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
             }
 
             _isBussy = false;
